@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.bookingappui.loginFormControl">
+   <children>
+      <ImageView fitHeight="576.0" fitWidth="680.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@img/loginImage.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane prefHeight="576.0" prefWidth="347.0">
+         <children>
+            <Label layoutX="139.0" layoutY="103.0" text="Login">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="71.0" layoutY="174.0" prefHeight="17.0" prefWidth="41.0" text="Email" />
+            <Label layoutX="71.0" layoutY="218.0" text="Password" />
+            <TextField fx:id="emailLogin" layoutX="139.0" layoutY="170.0" />
+            <Button layoutX="74.0" layoutY="288.0" mnemonicParsing="false" onAction="#signIn" prefHeight="25.0" prefWidth="217.0" styleClass="prButton" text="Sign In" AnchorPane.topAnchor="288.0">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </Button>
+            <Button layoutX="74.0" layoutY="323.0" mnemonicParsing="false" onAction="#loginWithGoogle" prefHeight="25.0" prefWidth="217.0" styleClass="redButton" text="Login with google">
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding></Button>
+            <PasswordField fx:id="passLogin" layoutX="139.0" layoutY="214.0" />
+            <Label layoutX="91.0" layoutY="370.0" onMouseClicked="#signUp" prefHeight="25.0" prefWidth="184.0" styleClass="signUp" text="If you don't have account . Sign up" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

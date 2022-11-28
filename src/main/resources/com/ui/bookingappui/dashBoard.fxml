@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox prefHeight="576.0" prefWidth="240.0" style="-fx-background-color: #695CB9;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="86.0" prefWidth="240.0" style="-fx-background-color: #413687;">
+               <children>
+                  <Label layoutX="85.0" layoutY="26.0" prefHeight="35.0" prefWidth="114.0" text="MeoCare" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="43.0" fitWidth="51.0" layoutX="24.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/doctorBag2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="47.0" prefWidth="240.0">
+               <children>
+                  <Label layoutX="50.0" layoutY="15.0" text="Take care of your health" textFill="WHITE" />
+               </children>
+            </Pane>
+            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="240.0" text="   Dash board" textFill="WHITE" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/dashBoard2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets top="4.0" />
+               </VBox.margin></Button>
+            <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="169.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="240.0" text="   Patient Information" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/person2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets top="4.0" />
+               </VBox.margin></Button>
+            <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="221.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="240.0" text="   Doctor Information" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/doc3.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets top="4.0" />
+               </VBox.margin></Button>
+            <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="273.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="240.0" text="   Setting" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/setting2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets top="4.0" />
+               </VBox.margin></Button>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

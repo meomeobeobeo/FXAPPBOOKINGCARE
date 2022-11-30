@@ -8,7 +8,7 @@ public class doctors {
     private String name;
     private int age;
     private String level;
-    private String work_place;
+    private String work_specialize;
     private String phone_number;
     private String email;
     private String description;
@@ -18,7 +18,7 @@ public class doctors {
         this.name = name;
         this.age = age;
         this.level = level;
-        this.work_place = work_place;
+        this.work_specialize = work_place;
         this.phone_number = phone_number;
         this.email = email;
         this.description = description;
@@ -61,12 +61,12 @@ public class doctors {
         this.level = level;
     }
 
-    public String getWork_place() {
-        return work_place;
+    public String getWork_specialize() {
+        return work_specialize;
     }
 
-    public void setWork_place(String work_place) {
-        this.work_place = work_place;
+    public void setWork_specialize(String work_specialize) {
+        this.work_specialize = work_specialize;
     }
 
     public String getPhone_number() {

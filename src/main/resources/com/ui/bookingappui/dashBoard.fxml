@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.bookingappui.dashBoardControl">
    <left>
       <VBox prefHeight="576.0" prefWidth="240.0" style="-fx-background-color: #695CB9;" BorderPane.alignment="CENTER">
          <children>
@@ -32,7 +32,7 @@
                   <Label layoutX="50.0" layoutY="15.0" text="Take care of your health" textFill="WHITE" />
                </children>
             </Pane>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="60.0" prefWidth="240.0" text="   Dash board" textFill="WHITE" textOverrun="CLIP">
+            <Button fx:id="btn_dashBoard" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleClick" prefHeight="60.0" prefWidth="240.0" styleClass="buttonNav" text="   Dash board" textFill="WHITE" textOverrun="CLIP">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -43,7 +43,7 @@
                <VBox.margin>
                   <Insets top="4.0" />
                </VBox.margin></Button>
-            <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="169.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="240.0" text="   Patient Information" textFill="WHITE">
+            <Button fx:id="btn_patientInfor" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="169.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleClick" prefHeight="60.0" prefWidth="240.0" styleClass="buttonNav" text="   Patient Information" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -54,7 +54,7 @@
                <VBox.margin>
                   <Insets top="4.0" />
                </VBox.margin></Button>
-            <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="221.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="240.0" text="   Doctor Information" textFill="WHITE">
+            <Button fx:id="btn_doctor_infor" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="221.0" mnemonicParsing="false" onAction="#handleClick" prefHeight="60.0" prefWidth="240.0" styleClass="buttonNav" text="   Doctor Information" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -65,7 +65,7 @@
                <VBox.margin>
                   <Insets top="4.0" />
                </VBox.margin></Button>
-            <Button alignment="BASELINE_LEFT" layoutX="10.0" layoutY="273.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="240.0" text="   Setting" textFill="WHITE">
+            <Button fx:id="btn_setting" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="273.0" mnemonicParsing="false" onAction="#handleClick" prefHeight="60.0" prefWidth="240.0" styleClass="buttonNav" text="   Setting" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -79,4 +79,196 @@
          </children>
       </VBox>
    </left>
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </BorderPane.margin>
+         <children>
+            <AnchorPane fx:id="dashBoard_pane" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="87.0" prefHeight="17.0" prefWidth="256.0" text="View search in DashBoard">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView layoutY="119.0" prefHeight="450.0" prefWidth="463.0" style="-fx-background-color: #fff;" AnchorPane.leftAnchor="12.0">
+                    <columns>
+                        <TableColumn prefWidth="103.0" text="Patient_ID" />
+                      <TableColumn prefWidth="101.0" text="Doctor_ID" />
+                      <TableColumn prefWidth="152.0" text="Registration date" />
+                        <TableColumn prefWidth="106.0" text="Payment" />
+                    </columns>
+                  </TableView>
+                  <TextField layoutX="14.0" layoutY="26.0" prefHeight="32.0" prefWidth="236.0" />
+                  <ComboBox layoutX="257.0" layoutY="26.0" prefHeight="33.0" prefWidth="109.0" promptText="Choose" style="-fx-background-color: #ccc;" />
+                  <Button layoutX="383.0" layoutY="24.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="90.0" styleClass="blackBtn">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/search.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </Button>
+                  <Pane layoutX="511.0" layoutY="118.0" prefHeight="451.0" prefWidth="258.0" style="-fx-background-color: #ddd;">
+                     <children>
+                        <Button layoutX="13.0" layoutY="14.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="238.0" style="-fx-background-color: #5C98DE;" styleClass="primaryBtn" text="Send a mail to patient or doctor" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icons/mail.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label layoutX="14.0" layoutY="99.0" text="Patient ID" />
+                        <Label layoutX="14.0" layoutY="132.0" prefHeight="17.0" prefWidth="57.0" text="Doctor ID" />
+                        <TextField layoutX="14.0" layoutY="162.0" prefHeight="260.0" prefWidth="235.0" />
+                        <TextField layoutX="79.0" layoutY="95.0" prefHeight="25.0" prefWidth="168.0" />
+                        <TextField layoutX="79.0" layoutY="128.0" prefHeight="25.0" prefWidth="169.0" />
+                     </children>
+                  </Pane>
+                  <Button layoutX="511.0" layoutY="23.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="258.0" styleClass="redBtb" text="Click here to add a registration" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/addIcon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="patient_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" visible="false">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="161.0" text="Search patients information" />
+                  <TextField layoutX="17.0" layoutY="42.0" prefHeight="32.0" prefWidth="242.0" />
+                  <ComboBox layoutX="270.0" layoutY="43.0" prefHeight="32.0" prefWidth="78.0" />
+                  <Button layoutX="359.0" layoutY="43.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" styleClass="blackBtn">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/search.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <TableView layoutX="14.0" layoutY="93.0" prefHeight="450.0" prefWidth="423.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Patients ID" />
+                      <TableColumn prefWidth="54.0" text="Age" />
+                        <TableColumn prefWidth="143.0" text="Name" />
+                        <TableColumn prefWidth="150.0" text="Email" />
+                    </columns>
+                  </TableView>
+                  <StackPane layoutX="460.0" layoutY="94.0" prefHeight="447.0" prefWidth="309.0" style="-fx-background-color: #EFE8E8;">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="43.0" prefHeight="17.0" prefWidth="48.0" text="Name" AnchorPane.leftAnchor="12.0" />
+                              <Label layoutX="14.0" layoutY="78.0" text="Adress" AnchorPane.leftAnchor="12.0" />
+                              <Label layoutX="11.0" layoutY="117.0" text="Phone number" AnchorPane.leftAnchor="12.0" />
+                              <Label layoutX="18.0" layoutY="156.0" text="Email" AnchorPane.leftAnchor="12.0" />
+                              <TextField layoutX="91.0" layoutY="39.0" prefHeight="25.0" prefWidth="196.0" AnchorPane.leftAnchor="94.0" />
+                              <TextField layoutX="91.0" layoutY="74.0" prefHeight="25.0" prefWidth="197.0" AnchorPane.leftAnchor="94.0" />
+                              <TextField layoutX="91.0" layoutY="113.0" prefHeight="25.0" prefWidth="197.0" AnchorPane.leftAnchor="94.0" />
+                              <TextField layoutX="91.0" layoutY="152.0" prefHeight="25.0" prefWidth="197.0" AnchorPane.leftAnchor="94.0" />
+                              <Button graphicTextGap="8.0" layoutX="14.0" layoutY="224.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="280.0" styleClass="primaryBtn" text="Regist" AnchorPane.leftAnchor="12.0">
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@icons/addIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </StackPane>
+                  <Button graphicTextGap="8.0" layoutX="462.0" layoutY="41.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="308.0" styleClass="redBtb" text="Registation" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/registration.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="doctor_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" visible="false">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="161.0" text="Search doctors information" />
+                  <TextField layoutX="17.0" layoutY="42.0" prefHeight="33.0" prefWidth="242.0" />
+                  <ComboBox layoutX="270.0" layoutY="43.0" prefHeight="32.0" prefWidth="78.0" />
+                  <Button layoutX="359.0" layoutY="43.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" styleClass="blackBtn">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/search.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <TableView layoutX="14.0" layoutY="93.0" prefHeight="450.0" prefWidth="423.0">
+                     <columns>
+                        <TableColumn prefWidth="75.0" text="Doctor ID" />
+                        <TableColumn prefWidth="54.0" text="Age" />
+                        <TableColumn prefWidth="143.0" text="Name" />
+                        <TableColumn prefWidth="150.0" text="Email" />
+                     </columns>
+                  </TableView>
+                  <StackPane layoutX="460.0" layoutY="94.0" prefHeight="447.0" prefWidth="309.0" style="-fx-background-color: #EFE8E8;">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="43.0" prefHeight="17.0" prefWidth="48.0" text="Name" AnchorPane.leftAnchor="12.0" />
+                              <Label layoutX="14.0" layoutY="78.0" text="Adress" AnchorPane.leftAnchor="12.0" />
+                              <Label layoutX="11.0" layoutY="117.0" text="Phone number" AnchorPane.leftAnchor="12.0" />
+                              <Label layoutX="18.0" layoutY="156.0" text="Email" AnchorPane.leftAnchor="12.0" />
+                              <TextField layoutX="91.0" layoutY="39.0" prefHeight="25.0" prefWidth="196.0" AnchorPane.leftAnchor="94.0" />
+                              <TextField layoutX="91.0" layoutY="74.0" prefHeight="25.0" prefWidth="197.0" AnchorPane.leftAnchor="94.0" />
+                              <TextField layoutX="91.0" layoutY="113.0" prefHeight="25.0" prefWidth="197.0" AnchorPane.leftAnchor="94.0" />
+                              <TextField layoutX="91.0" layoutY="152.0" prefHeight="25.0" prefWidth="197.0" AnchorPane.leftAnchor="94.0" />
+                              <Button graphicTextGap="8.0" layoutX="15.0" layoutY="407.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="280.0" styleClass="primaryBtn" text="Regist" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0">
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@icons/addIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label layoutX="12.0" layoutY="200.0" text="Level" />
+                              <ComboBox layoutX="91.0" layoutY="196.0" prefHeight="25.0" prefWidth="199.0" promptText="Level of doctor" style="-fx-background-color: #ddd; -fx-border-color: #000;" AnchorPane.leftAnchor="94.0" />
+                              <Label layoutX="12.0" layoutY="238.0" text="Age" AnchorPane.leftAnchor="12.0" />
+                              <Label layoutX="11.0" layoutY="276.0" prefHeight="17.0" prefWidth="87.0" text="Work at" />
+                              <ComboBox layoutX="91.0" layoutY="234.0" prefHeight="25.0" prefWidth="199.0" promptText="Age" style="-fx-background-color: #ddd; -fx-border-color: #000;" AnchorPane.leftAnchor="94.0" />
+                              <Label layoutX="11.0" layoutY="319.0" prefHeight="17.0" prefWidth="78.0" text="Description" />
+                              <ComboBox layoutX="94.0" layoutY="272.0" prefHeight="25.0" prefWidth="199.0" promptText="Work specialize" style="-fx-background-color: #ddd; -fx-border-color: #000;" />
+                              <TextField editable="false" layoutX="89.0" layoutY="320.0" prefHeight="56.0" prefWidth="199.0" AnchorPane.leftAnchor="94.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </StackPane>
+                  <Button graphicTextGap="8.0" layoutX="462.0" layoutY="41.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="308.0" styleClass="redBtb" text="Registation" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/registration.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="setting_pane" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <children>
+                  <Label layoutX="308.0" layoutY="257.0" prefHeight="55.0" prefWidth="139.0" text="Day la setting" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </center>
 </BorderPane>

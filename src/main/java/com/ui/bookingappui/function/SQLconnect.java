@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class SQLconnect {
-    public void connect() {
+    public void connect( ) {
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setUser("sa");
 
@@ -24,10 +24,12 @@ public class SQLconnect {
             System.out.println(connection.getSchema());
 
 
-        } catch (SQLServerException e) {
-            throw new RuntimeException(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void main(String[] args) {
+        new SQLconnect().connect();
     }
 }

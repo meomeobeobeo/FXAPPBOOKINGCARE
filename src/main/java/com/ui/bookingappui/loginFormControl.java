@@ -37,7 +37,7 @@ public class loginFormControl {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("dashBoard.fxml")));
             Parent dashBoardPage = loader.load();
-            Scene dashBoardPageScene = new Scene(dashBoardPage);
+            Scene dashBoardPageScene = new Scene(dashBoardPage,1024,576);
             dashBoardPageScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("dashBoard.css")).toExternalForm());
 
             stage.setScene(dashBoardPageScene);

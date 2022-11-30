@@ -1,16 +1,42 @@
 
 
-.button {
+.buttonNav {
     -fx-background-color:  #695CB9;
     -fx-font-size: 16px;
 
 
 }
-.button:hover{
+.buttonNav:hover{
     -fx-background-color: #8576E4;
 
 }
-.button:focused{
+.buttonNav:focused{
     -fx-background-color: #4B3CA9;
+    -fx-border-color: #fff;
+    -fx-border-insets:0px 0px 0px 4px ;
 
 }
+.primaryBtn {
+    -fx-background-color: #5C98DE;
+    -fx-text-fill: #fff;
+}
+.primaryBtn:hover {
+    -fx-opacity: 0.7;
+}
+.redBtb{
+    -fx-background-color: #F05B5B;
+    -fx-text-fill: #fff;
+
+}
+.redBtb:hover{
+    -fx-opacity: 0.7;
+}
+.blackBtn{
+    -fx-background-color: #262222;
+    -fx-text-fill: #ffff!important;
+
+}
+.blackBtn:hover{
+    -fx-opacity: 0.7;
+}
+

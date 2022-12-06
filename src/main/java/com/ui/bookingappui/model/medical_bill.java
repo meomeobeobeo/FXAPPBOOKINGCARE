@@ -8,21 +8,21 @@ public class medical_bill {
     private String doctor_id;
     private LocalDateTime registration_date;
     private LocalDateTime medical_examination_day;
-    private  int payment;
-
-    public int getPayment() {
-        return payment;
-    }
-
-    public void setPayment(int payment) {
-        this.payment = payment;
-    }
+    private int payment;
 
     public medical_bill(String patient_id, String doctor_id, LocalDateTime registration_date, LocalDateTime medical_examination_day, int payment) {
         this.patient_id = patient_id;
         this.doctor_id = doctor_id;
         this.registration_date = registration_date;
         this.medical_examination_day = medical_examination_day;
+        this.payment = payment;
+    }
+
+    public int getPayment() {
+        return payment;
+    }
+
+    public void setPayment(int payment) {
         this.payment = payment;
     }
 

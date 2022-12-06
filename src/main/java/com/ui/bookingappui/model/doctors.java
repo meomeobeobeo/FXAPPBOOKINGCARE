@@ -1,32 +1,28 @@
 package com.ui.bookingappui.model;
 
 
-import java.io.IOException;
-
 public class doctors {
     private String id;
-    private String name;
+    private String nameDoctor;
     private int age;
-    private String level;
+    private String levelDoctor;
     private String work_specialize;
     private String phone_number;
     private String email;
-    private String description;
+    private String descriptionDoctor;
+    private String gender;
 
-    public doctors(String id, String name, int age, String level, String work_place, String phone_number, String email, String description) {
+    public doctors(String id, String nameDoctor, int age, String levelDoctor, String work_specialize, String phone_number, String email, String descriptionDoctor, String gender) {
+
         this.id = id;
-        this.name = name;
+        this.nameDoctor = nameDoctor;
         this.age = age;
-        this.level = level;
-        this.work_specialize = work_place;
+        this.levelDoctor = levelDoctor;
+        this.work_specialize = work_specialize;
         this.phone_number = phone_number;
         this.email = email;
-        this.description = description;
-    }
-
-    public static void main(String[] args) throws IOException {
-
-
+        this.descriptionDoctor = descriptionDoctor;
+        this.gender = gender;
     }
 
     public String getId() {
@@ -37,12 +33,12 @@ public class doctors {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNameDoctor() {
+        return nameDoctor;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameDoctor(String nameDoctor) {
+        this.nameDoctor = nameDoctor;
     }
 
     public int getAge() {
@@ -53,12 +49,12 @@ public class doctors {
         this.age = age;
     }
 
-    public String getLevel() {
-        return level;
+    public String getLevelDoctor() {
+        return levelDoctor;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setLevelDoctor(String levelDoctor) {
+        this.levelDoctor = levelDoctor;
     }
 
     public String getWork_specialize() {
@@ -85,11 +81,19 @@ public class doctors {
         this.email = email;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionDoctor() {
+        return descriptionDoctor;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionDoctor(String descriptionDoctor) {
+        this.descriptionDoctor = descriptionDoctor;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

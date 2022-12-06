@@ -2,17 +2,21 @@ package com.ui.bookingappui.model;
 
 public class patients {
     private String id;
-    private String name;
-    private String address;
+    private String namePatient;
+    private String addressPatient;
     private String phone_number;
     private String email;
+    private String gender;
+    private int age;
 
-    public patients(String id, String name, String address, String phone_number, String email) {
+    public patients(String id, String namePatient, String addressPatient, String phone_number, String email, String gender, int age) {
         this.id = id;
-        this.name = name;
-        this.address = address;
+        this.namePatient = namePatient;
+        this.addressPatient = addressPatient;
         this.phone_number = phone_number;
         this.email = email;
+        this.gender = gender;
+        this.age = age;
     }
 
     public String getId() {
@@ -23,20 +27,20 @@ public class patients {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNamePatient() {
+        return namePatient;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNamePatient(String namePatient) {
+        this.namePatient = namePatient;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAddressPatient() {
+        return addressPatient;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressPatient(String addressPatient) {
+        this.addressPatient = addressPatient;
     }
 
     public String getPhone_number() {
@@ -53,5 +57,21 @@ public class patients {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

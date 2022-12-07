@@ -112,7 +112,7 @@
                   </Button>
                   <Pane layoutX="511.0" layoutY="118.0" prefHeight="451.0" prefWidth="258.0" style="-fx-background-color: #ddd;">
                      <children>
-                        <Button layoutX="13.0" layoutY="14.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="238.0" style="-fx-background-color: #5C98DE;" styleClass="primaryBtn" text="Send a mail to patient or doctor" textFill="WHITE">
+                        <Button layoutX="13.0" layoutY="14.0" mnemonicParsing="false" onAction="#sendMail" prefHeight="37.0" prefWidth="238.0" style="-fx-background-color: #5C98DE;" styleClass="primaryBtn" text="Send a mail to patient or doctor" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -123,9 +123,9 @@
                         </Button>
                         <Label layoutX="14.0" layoutY="99.0" text="Patient ID" />
                         <Label layoutX="14.0" layoutY="132.0" prefHeight="17.0" prefWidth="57.0" text="Doctor ID" />
-                        <TextField layoutX="14.0" layoutY="162.0" prefHeight="260.0" prefWidth="235.0" />
-                        <TextField layoutX="79.0" layoutY="95.0" prefHeight="25.0" prefWidth="168.0" />
-                        <TextField layoutX="79.0" layoutY="128.0" prefHeight="25.0" prefWidth="169.0" />
+                        <TextField fx:id="mailPatientID" layoutX="79.0" layoutY="95.0" prefHeight="25.0" prefWidth="168.0" />
+                        <TextField fx:id="mailDoctorID" layoutX="79.0" layoutY="128.0" prefHeight="25.0" prefWidth="169.0" />
+                        <TextArea fx:id="mailContent" layoutX="10.0" layoutY="173.0" prefHeight="266.0" prefWidth="238.0" />
                      </children>
                   </Pane>
                   <Button layoutX="511.0" layoutY="23.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="258.0" styleClass="redBtb" text="Click here to add a registration" textFill="WHITE">

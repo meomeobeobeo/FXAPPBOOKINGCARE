@@ -2,6 +2,8 @@ package com.ui.bookingappui;
 
 import com.ui.bookingappui.function.Help;
 import com.ui.bookingappui.function.SQLconnect;
+import com.ui.bookingappui.function.mailThreat;
+import com.ui.bookingappui.function.myAlert;
 import com.ui.bookingappui.model.doctors;
 import com.ui.bookingappui.model.patients;
 import javafx.collections.FXCollections;
@@ -24,7 +26,7 @@ public class dashBoardControl implements Initializable {
     @FXML
     private TextField name_doctor;
     @FXML
-    private  TextField address_doctor;
+    private TextField address_doctor;
     @FXML
     private TextField phone_number_doctor;
     @FXML
@@ -37,9 +39,9 @@ public class dashBoardControl implements Initializable {
     private TextField search_doctor_field;
     @FXML
     private ComboBox<String> search_doctor_choose;
-    private ObservableList<String> list_age = FXCollections.observableArrayList(new Help().initialAge());
-    private ObservableList<String> gender = FXCollections.observableArrayList("Nam", "Nữ");
-    private ObservableList<String> list_search_choose = FXCollections.observableArrayList(
+    private final ObservableList<String> list_age = FXCollections.observableArrayList(new Help().initialAge());
+    private final ObservableList<String> gender = FXCollections.observableArrayList("Nam", "Nữ");
+    private final ObservableList<String> list_search_choose = FXCollections.observableArrayList(
             "Search with Name",
             "Search with age",
             "Search with ID",
@@ -48,10 +50,10 @@ public class dashBoardControl implements Initializable {
     );
     private ResultSet result_patients;
     private ResultSet result_doctors;
-    private ObservableList<patients> patients_list = FXCollections.observableArrayList();
-    private ObservableList<doctors> doctors_list = FXCollections.observableArrayList();
-    private ObservableList<String> list_level = FXCollections.observableArrayList("Thạc sĩ", "Phó giáo sư", "Giáo sư");
-    private ObservableList<String> list_work_special = FXCollections.observableArrayList(
+    private final ObservableList<patients> patients_list = FXCollections.observableArrayList();
+    private final ObservableList<doctors> doctors_list = FXCollections.observableArrayList();
+    private final ObservableList<String> list_level = FXCollections.observableArrayList("Thạc sĩ", "Phó giáo sư", "Giáo sư");
+    private final ObservableList<String> list_work_special = FXCollections.observableArrayList(
             "Não và thần kinh",
             "Phẫu thuật chỉnh hình",
             "U bướu",
@@ -126,6 +128,13 @@ public class dashBoardControl implements Initializable {
     private TableColumn<doctors, String> doctor_name_col;
     @FXML
     private TableColumn<doctors, String> doctor_email_col;
+    @FXML
+    private TextField mailPatientID;
+    @FXML
+    private TextField mailDoctorID;
+    @FXML
+    private TextArea mailContent;
+
 
     // Khởi tạo
     @Override
@@ -235,15 +244,15 @@ public class dashBoardControl implements Initializable {
     private void patient_setData(String query, SQLconnect sqLconnect) throws SQLException {
         patients_list.clear();
         result_patients = sqLconnect.getData(query);
-        if (!result_patients.next()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("Status");
-            alert.setContentText("Can not find data.");
-            alert.show();
+        if (!result_patients.isBeforeFirst() && result_patients.getRow() == 0) {
+            new myAlert().getAlertCanNotFindData().show();
             return;
         }
 
+
+
         while (result_patients.next()) {
+            System.out.println(result_patients.getString("namePatient"));
             patients_list.add(
                     new patients(
                             result_patients.getString("id"),
@@ -260,11 +269,11 @@ public class dashBoardControl implements Initializable {
 
     }
 
-    private void doctor_setData(String query, SQLconnect sqLconnect) throws SQLException    {
+    private void doctor_setData(String query, SQLconnect sqLconnect) throws SQLException {
 
         doctors_list.clear();
         result_doctors = sqLconnect.getData(query);
-        if (!result_doctors.next()) {
+        if (!result_doctors.isBeforeFirst() && result_doctors.getRow() == 0) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Status");
             alert.setContentText("Can not find data.");
@@ -401,6 +410,76 @@ public class dashBoardControl implements Initializable {
 
     }
 
+    @FXML
+    private void sendMail() throws SQLException {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Email Status.");
+        String patientID = mailPatientID.getText();
+        String doctorID = mailDoctorID.getText();
+        System.out.println("patient  " + mailPatientID.getText());
+        System.out.println("doctor  " + mailDoctorID.getText());
+        SQLconnect sqLconnect = new SQLconnect();
+        sqLconnect.connect();
+        if (patientID == "") {
+            if (doctorID == "") {
+               new myAlert().getAlertRequiredField().show();
+
+            }
+        } else {
+            String query = "select * from patients where id = " + "'" + patientID.replaceAll("\\s+", "") + "'";
+            ResultSet inforPatient = sqLconnect.getData(query);
+            if (!inforPatient.isBeforeFirst() && inforPatient.getRow() == 0) {
+                new myAlert().getAlertCanNotFindData().show();
+                return;
+            }
+            while (inforPatient.next()) {
+                String email = inforPatient.getString("email");
+                mailThreat mail = new mailThreat();
+                mail.setToEmail(email);
+                mail.setContent(mailContent.getText());
+                Thread thread = new Thread(mail);
+                thread.start();
+
+                if (!thread.isInterrupted()) {
+
+                    alert.setContentText("Send email success");
+                    alert.show();
+                } else {
+
+                    alert.setContentText("Send email error.");
+                    alert.show();
+                }
+            }
+        }
+        //
+        if (!(doctorID == "")) {
+            String query = "select * from doctors where id = " + "'" + doctorID.replaceAll("\\s+", "") + "'";
+            ResultSet inforDoctor = sqLconnect.getData(query);
+            if (!inforDoctor.isBeforeFirst() && inforDoctor.getRow() == 0) {
+                new myAlert().getAlertCanNotFindData().show();
+                return;
+            }
+            while (inforDoctor.next()) {
+                String email = inforDoctor.getString("email");
+                mailThreat mail = new mailThreat();
+                mail.setToEmail(email);
+                mail.setContent(mailContent.getText());
+                Thread thread = new Thread(mail);
+                thread.start();
+
+                if (!thread.isInterrupted()) {
+
+                    alert.setContentText("Send email success");
+                    alert.show();
+                } else {
+
+                    alert.setContentText("Send email error.");
+                    alert.show();
+                }
+            }
+
+        }
+    }
 
     // set route
     @FXML

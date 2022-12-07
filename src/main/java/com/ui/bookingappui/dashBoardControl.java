@@ -134,6 +134,10 @@ public class dashBoardControl implements Initializable {
     private TextField mailDoctorID;
     @FXML
     private TextArea mailContent;
+    @FXML
+    private ComboBox<String> mailPatientId;
+    @FXML
+    private ComboBox<String> mailDoctorId;
 
 
     // Khởi tạo

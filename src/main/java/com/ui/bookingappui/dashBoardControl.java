@@ -21,22 +21,6 @@ import java.util.ResourceBundle;
 public class dashBoardControl implements Initializable {
 
 
-    @FXML
-    private TextField name_doctor;
-    @FXML
-    private TextField address_doctor;
-    @FXML
-    private TextField phone_number_doctor;
-    @FXML
-    private TextField email_doctor;
-    @FXML
-    private TextArea description_doctor;
-    @FXML
-    private ComboBox<String> gender_doctor;
-    @FXML
-    private TextField search_doctor_field;
-    @FXML
-    private ComboBox<String> search_doctor_choose;
     private final ObservableList<String> list_age = FXCollections.observableArrayList(new Help().initialAge());
     private final ObservableList<String> gender = FXCollections.observableArrayList("Nam", "Nữ");
     private final ObservableList<String> list_search_choose = FXCollections.observableArrayList(
@@ -46,8 +30,6 @@ public class dashBoardControl implements Initializable {
             "Search with phone number",
             "Search with Email"
     );
-    private ResultSet result_patients;
-    private ResultSet result_doctors;
     private final ObservableList<patients> patients_list = FXCollections.observableArrayList();
     private final ObservableList<doctors> doctors_list = FXCollections.observableArrayList();
     private final ObservableList<String> list_level = FXCollections.observableArrayList("Thạc sĩ", "Phó giáo sư", "Giáo sư");
@@ -68,6 +50,24 @@ public class dashBoardControl implements Initializable {
             "Phụ sản",
             "Nha khoa"
     );
+    @FXML
+    private TextField name_doctor;
+    @FXML
+    private TextField address_doctor;
+    @FXML
+    private TextField phone_number_doctor;
+    @FXML
+    private TextField email_doctor;
+    @FXML
+    private TextArea description_doctor;
+    @FXML
+    private ComboBox<String> gender_doctor;
+    @FXML
+    private TextField search_doctor_field;
+    @FXML
+    private ComboBox<String> search_doctor_choose;
+    private ResultSet result_patients;
+    private ResultSet result_doctors;
     @FXML
     private Button btn_doctor_infor;
     @FXML
@@ -172,15 +172,15 @@ public class dashBoardControl implements Initializable {
 
     @FXML
     private void regist_doctor(ActionEvent e) {
-        ArrayList<String> errorInput ;
+        ArrayList<String> errorInput;
         checkRuleInput check = new checkRuleInput();
-        errorInput = check.checkDoctorInputData(name_doctor.getText(),age_doctor.getValue(),level_doctor.getValue(),work_special_doctor.getValue(),phone_number_doctor.getText(), email_doctor.getText(),description_doctor.getText(),gender_doctor.getValue());
-        if(errorInput.size() > 0){
+        errorInput = check.checkDoctorInputData(name_doctor.getText(), age_doctor.getValue(), level_doctor.getValue(), work_special_doctor.getValue(), phone_number_doctor.getText(), email_doctor.getText(), description_doctor.getText(), gender_doctor.getValue());
+        if (errorInput.size() > 0) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             String content = "";
-            for (String a: errorInput) {
+            for (String a : errorInput) {
 
-                content = content+"\n"+a;
+                content = content + "\n" + a;
             }
             alert.setHeaderText("Error in text field.");
             alert.setContentText(content);
@@ -226,15 +226,15 @@ public class dashBoardControl implements Initializable {
 
     @FXML
     private void regist_patient(ActionEvent event) {
-        ArrayList<String> errorInput ;
+        ArrayList<String> errorInput;
         checkRuleInput check = new checkRuleInput();
-        errorInput = check.checkPatientInputData(namePatient.getText(),addressPatient.getText(),phone_number_patient.getText(),email_patient.getText(),age_patient.getValue());
-        if(errorInput.size() > 0){
+        errorInput = check.checkPatientInputData(namePatient.getText(), addressPatient.getText(), phone_number_patient.getText(), email_patient.getText(), age_patient.getValue());
+        if (errorInput.size() > 0) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             String content = "";
-            for (String a: errorInput) {
+            for (String a : errorInput) {
 
-                content = content+"\n"+a;
+                content = content + "\n" + a;
             }
             alert.setHeaderText("Error in text field.");
             alert.setContentText(content);
@@ -281,7 +281,6 @@ public class dashBoardControl implements Initializable {
             new myAlert().getAlertCanNotFindData().show();
             return;
         }
-
 
 
         while (result_patients.next()) {
@@ -357,14 +356,13 @@ public class dashBoardControl implements Initializable {
         } else if (choose == "Search with age") {
             String key = searchText.replaceAll("\\s+", "");
             Help help = new Help();
-            if(help.checkStringOnlyNumber(key)){
+            if (help.checkStringOnlyNumber(key)) {
 
                 String query = "select * from doctors where age = " + searchText.replaceAll("\\s+", "");
                 System.out.println(query);
                 // set data into state
                 doctor_setData(query, sqLconnect);
-            }
-            else{
+            } else {
                 new myAlert().getAlertDataInvalid().show();
 
             }
@@ -422,13 +420,12 @@ public class dashBoardControl implements Initializable {
         } else if (choose == "Search with age") {
             String key = searchText.replaceAll("\\s+", "");
             Help help = new Help();
-            if(help.checkStringOnlyNumber(key)){
+            if (help.checkStringOnlyNumber(key)) {
                 String query = "select * from patients where age = " + searchText.replaceAll("\\s+", "");
                 System.out.println(query);
                 // set data into state
                 patient_setData(query, sqLconnect);
-            }
-            else {
+            } else {
                 new myAlert().getAlertDataInvalid().show();
             }
 
@@ -472,7 +469,7 @@ public class dashBoardControl implements Initializable {
         sqLconnect.connect();
         if (patientID == "") {
             if (doctorID == "") {
-               new myAlert().getAlertRequiredField().show();
+                new myAlert().getAlertRequiredField().show();
 
             }
         } else {

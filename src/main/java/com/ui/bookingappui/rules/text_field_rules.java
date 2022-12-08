@@ -6,10 +6,10 @@ public class text_field_rules {
 
     // check required field
     public boolean check_required(String text) {
-        if(text == null){
+        if (text == null) {
             return false;
         }
-        return !text.equals("") ;
+        return !text.equals("");
 
     }
 
@@ -21,14 +21,12 @@ public class text_field_rules {
                 .matches();
 
     }
-    public boolean isOnlyNumber(String str){
-        if(str == null){
+
+    public boolean isOnlyNumber(String str) {
+        if (str == null) {
             return false;
         }
-        if (str.matches("[0-9]+")){
-            return true;
-        }
-        return false;
+        return str.matches("[0-9]+");
     }
 
     // check is number

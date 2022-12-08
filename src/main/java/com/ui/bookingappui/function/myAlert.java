@@ -3,11 +3,16 @@ package com.ui.bookingappui.function;
 import javafx.scene.control.Alert;
 
 public class myAlert {
-    Alert alertCanNotFindData;
-    Alert alertRequiredField;
+    private static Alert alertCanNotFindData;
+    private  static Alert alertRequiredField;
+    private static Alert alertDataInvalid;
 
     public Alert getAlertRequiredField() {
         return alertRequiredField;
+    }
+
+    public  Alert getAlertDataInvalid() {
+        return alertDataInvalid;
     }
 
     public myAlert(){
@@ -18,6 +23,10 @@ public class myAlert {
         alertRequiredField = new Alert(Alert.AlertType.WARNING);
         alertRequiredField.setContentText("Need data in field.");
         alertRequiredField.setHeaderText("Warming");
+
+        alertDataInvalid = new Alert(Alert.AlertType.WARNING);
+        alertDataInvalid.setHeaderText("Warming");
+        alertDataInvalid.setContentText("You must enter valid data");
 
     }
 

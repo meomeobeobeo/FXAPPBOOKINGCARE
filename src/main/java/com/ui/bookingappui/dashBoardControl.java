@@ -1,9 +1,6 @@
 package com.ui.bookingappui;
 
-import com.ui.bookingappui.function.Help;
-import com.ui.bookingappui.function.SQLconnect;
-import com.ui.bookingappui.function.mailThreat;
-import com.ui.bookingappui.function.myAlert;
+import com.ui.bookingappui.function.*;
 import com.ui.bookingappui.model.doctors;
 import com.ui.bookingappui.model.patients;
 import javafx.collections.FXCollections;
@@ -18,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class dashBoardControl implements Initializable {
@@ -174,6 +172,21 @@ public class dashBoardControl implements Initializable {
 
     @FXML
     private void regist_doctor(ActionEvent e) {
+        ArrayList<String> errorInput ;
+        checkRuleInput check = new checkRuleInput();
+        errorInput = check.checkDoctorInputData(name_doctor.getText(),age_doctor.getValue(),level_doctor.getValue(),work_special_doctor.getValue(),phone_number_doctor.getText(), email_doctor.getText(),description_doctor.getText(),gender_doctor.getValue());
+        if(errorInput.size() > 0){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            String content = "";
+            for (String a: errorInput) {
+
+                content = content+"\n"+a;
+            }
+            alert.setHeaderText("Error in text field.");
+            alert.setContentText(content);
+            alert.show();
+            return;
+        }
         doctors newDoctor = new doctors(
                 new Help().renderId(),
                 name_doctor.getText(),
@@ -213,6 +226,22 @@ public class dashBoardControl implements Initializable {
 
     @FXML
     private void regist_patient(ActionEvent event) {
+        ArrayList<String> errorInput ;
+        checkRuleInput check = new checkRuleInput();
+        errorInput = check.checkPatientInputData(namePatient.getText(),addressPatient.getText(),phone_number_patient.getText(),email_patient.getText(),age_patient.getValue());
+        if(errorInput.size() > 0){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            String content = "";
+            for (String a: errorInput) {
+
+                content = content+"\n"+a;
+            }
+            alert.setHeaderText("Error in text field.");
+            alert.setContentText(content);
+            alert.show();
+            return;
+        }
+
         patients newPatient = new patients(
                 new Help().renderId(),
                 namePatient.getText(),
@@ -326,11 +355,20 @@ public class dashBoardControl implements Initializable {
             // set data into state
             doctor_setData(query, sqLconnect);
         } else if (choose == "Search with age") {
+            String key = searchText.replaceAll("\\s+", "");
+            Help help = new Help();
+            if(help.checkStringOnlyNumber(key)){
 
-            String query = "select * from doctors where age = " + searchText.replaceAll("\\s+", "");
-            System.out.println(query);
-            // set data into state
-            doctor_setData(query, sqLconnect);
+                String query = "select * from doctors where age = " + searchText.replaceAll("\\s+", "");
+                System.out.println(query);
+                // set data into state
+                doctor_setData(query, sqLconnect);
+            }
+            else{
+                new myAlert().getAlertDataInvalid().show();
+
+            }
+
         } else if (choose == "Search with ID") {
             patients_list.clear();
             String query = "select * from doctors where id = " + "'" + searchText.replaceAll("\\s+", "") + "'";
@@ -382,11 +420,19 @@ public class dashBoardControl implements Initializable {
             // set data into state
             patient_setData(query, sqLconnect);
         } else if (choose == "Search with age") {
+            String key = searchText.replaceAll("\\s+", "");
+            Help help = new Help();
+            if(help.checkStringOnlyNumber(key)){
+                String query = "select * from patients where age = " + searchText.replaceAll("\\s+", "");
+                System.out.println(query);
+                // set data into state
+                patient_setData(query, sqLconnect);
+            }
+            else {
+                new myAlert().getAlertDataInvalid().show();
+            }
 
-            String query = "select * from patients where age = " + searchText.replaceAll("\\s+", "");
-            System.out.println(query);
-            // set data into state
-            patient_setData(query, sqLconnect);
+
         } else if (choose == "Search with ID") {
             patients_list.clear();
             String query = "select * from patients where id = " + "'" + searchText.replaceAll("\\s+", "") + "'";

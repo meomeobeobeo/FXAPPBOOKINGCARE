@@ -6,7 +6,10 @@ public class text_field_rules {
 
     // check required field
     public boolean check_required(String text) {
-        return !text.equals("");
+        if(text == null){
+            return false;
+        }
+        return !text.equals("") ;
 
     }
 
@@ -17,6 +20,15 @@ public class text_field_rules {
                 .matcher(email)
                 .matches();
 
+    }
+    public boolean isOnlyNumber(String str){
+        if(str == null){
+            return false;
+        }
+        if (str.matches("[0-9]+")){
+            return true;
+        }
+        return false;
     }
 
     // check is number

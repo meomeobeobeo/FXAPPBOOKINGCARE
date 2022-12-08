@@ -34,6 +34,14 @@ public class Help {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
     }
+    public boolean checkStringOnlyNumber(String str){
+        if (str.matches("[0-9]+")){
+            return true;
+        }
+        return false;
+    }
+
+
 
 
 }

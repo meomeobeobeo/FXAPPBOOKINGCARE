@@ -7,15 +7,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class dashBoardControl implements Initializable {
@@ -167,6 +174,24 @@ public class dashBoardControl implements Initializable {
         doctor_email_col.setCellValueFactory(new PropertyValueFactory<doctors, String>("email"));
         table_doctors.setItems(doctors_list);
 
+
+    }
+    @FXML
+    private void set_patient_detail(ActionEvent event) throws IOException {
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("detailPatient.fxml")));
+        Parent detailPage =loader.load();
+        Scene detailPageScene = new Scene(detailPage);
+        detailPageScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("detail.css")).toExternalForm());
+        patients patient = table_patients.getSelectionModel().getSelectedItem();
+        if(patient == null){
+            new myAlert().getAlertDataInvalid().show();
+            return;
+        }
+        patientDetailControl patientDetailControl = loader.getController();
+        patientDetailControl.setValueDetail(patient);
+        stage.setScene(detailPageScene);
 
     }
 

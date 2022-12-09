@@ -39,5 +39,9 @@ public class Help {
         return str.matches("[0-9]+");
     }
 
+    public static void main(String[] args) {
+       boolean a =  new Help().checkStringOnlyNumber("231231");
+        System.out.println(a);
+    }
 
 }

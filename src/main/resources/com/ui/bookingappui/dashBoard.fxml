@@ -155,7 +155,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TableView fx:id="table_patients" layoutX="14.0" layoutY="93.0" prefHeight="450.0" prefWidth="423.0">
+                  <TableView fx:id="table_patients" layoutX="14.0" layoutY="114.0" prefHeight="429.0" prefWidth="423.0">
                     <columns>
                       <TableColumn fx:id="patient_id_col" prefWidth="75.0" text="Patients ID" />
                       <TableColumn fx:id="patient_age_col" prefWidth="54.0" text="Age" />
@@ -201,6 +201,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button layoutX="17.0" layoutY="82.0" mnemonicParsing="false" onAction="#set_patient_detail" prefHeight="25.0" prefWidth="100.0" styleClass="blackBtn" text="Detail" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="doctor_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" visible="false">
@@ -217,7 +218,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <TableView fx:id="table_doctors" layoutX="14.0" layoutY="93.0" prefHeight="450.0" prefWidth="423.0">
+                  <TableView fx:id="table_doctors" layoutX="14.0" layoutY="113.0" prefHeight="430.0" prefWidth="423.0">
                      <columns>
                         <TableColumn fx:id="doctor_id_col" prefWidth="75.0" text="Doctor ID" />
                         <TableColumn fx:id="doctor_age_col" prefWidth="54.0" text="Age" />
@@ -269,6 +270,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button layoutX="17.0" layoutY="82.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" styleClass="blackBtn" text="Detail" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="setting_pane" prefHeight="200.0" prefWidth="200.0" visible="false">

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1024.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.bookingappui.doctorDetailControl">
+    <children>
+        <Pane layoutY="55.0" prefHeight="380.0" prefWidth="612.0" style="-fx-background-color: #fff; -fx-border-width: 4; -fx-border-color: #ccc;">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@img/Doctor.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="210.0" layoutY="14.0" text="ID" />
+                <Label layoutX="210.0" layoutY="46.0" text="Name" />
+                <Label layoutX="210.0" layoutY="80.0" text="Phone Number" />
+                <Label layoutX="210.0" layoutY="115.0" text="Email" />
+                <Label layoutX="440.0" layoutY="46.0" text="Gender" />
+                <Label layoutX="440.0" layoutY="80.0" text="Age" />
+                <Label fx:id="id" layoutX="309.0" layoutY="14.0" prefHeight="17.0" prefWidth="110.0" text="id ex" />
+                <Label fx:id="name" layoutX="306.0" layoutY="46.0" text="Name ex" />
+                <Label fx:id="phoneNumber" layoutX="306.0" layoutY="80.0" prefHeight="17.0" prefWidth="116.0" text="Phone ex" />
+                <Label fx:id="mail" layoutX="310.0" layoutY="115.0" prefHeight="17.0" prefWidth="100.0" text="mail ex" />
+                <Label fx:id="gender" layoutX="507.0" layoutY="46.0" text="gen ex" />
+                <Label fx:id="age" layoutX="506.0" layoutY="80.0" text="Age ex" />
+                <Button layoutX="149.0" layoutY="302.0" mnemonicParsing="false" onAction="#editDoctorAction" prefHeight="48.0" prefWidth="150.0" styleClass="primaryBtn" text="Edit information">
+                    <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@icons/edit.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button layoutX="370.0" layoutY="302.0" mnemonicParsing="false" onAction="#clearCurrentData" prefHeight="48.0" prefWidth="136.0" styleClass="redBtb" text="Clear data">
+                    <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@icons/clear.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            <Label layoutX="210.0" layoutY="146.0" prefHeight="17.0" prefWidth="71.0" text="Description" />
+            <Label layoutX="440.0" layoutY="115.0" text="Level" />
+            <Label fx:id="doctorLevel" layoutX="505.0" layoutY="115.0" text="Ex level" />
+            <Label layoutX="440.0" layoutY="146.0" text="Work in" />
+            <Label fx:id="doctorWorkAs" layoutX="504.0" layoutY="146.0" text="ex work" />
+            <Label fx:id="description" layoutX="210.0" layoutY="180.0" prefHeight="27.0" prefWidth="337.0" text="ex description" wrapText="true" />
+            </children>
+        </Pane>
+        <Button contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#backToDashBoard" prefHeight="48.0" prefWidth="28.0" style="-fx-background-color: #fff;">
+            <graphic>
+                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@icons/back.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <StackPane layoutX="691.0" layoutY="54.0" prefHeight="489.0" prefWidth="321.0" style="-fx-background-color: #eee;">
+            <children>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Label layoutX="10.0" layoutY="22.0" prefHeight="17.0" prefWidth="48.0" text="Name" AnchorPane.leftAnchor="12.0" />
+                        <Label layoutX="11.0" layoutY="63.0" text="Phone number" AnchorPane.leftAnchor="12.0" />
+                        <Label layoutX="20.0" layoutY="141.0" text="Email" AnchorPane.leftAnchor="12.0" />
+                        <TextField fx:id="name_doctor_edit" layoutX="89.0" layoutY="18.0" prefHeight="25.0" prefWidth="196.0" AnchorPane.leftAnchor="94.0" />
+                        <TextField fx:id="phone_number_doctor_edit" layoutX="95.0" layoutY="59.0" prefHeight="25.0" prefWidth="197.0" AnchorPane.leftAnchor="94.0" />
+                        <TextField fx:id="email_doctor_edit" layoutX="95.0" layoutY="137.0" prefHeight="25.0" prefWidth="197.0" AnchorPane.leftAnchor="94.0" />
+                        <Button graphicTextGap="8.0" layoutX="15.0" layoutY="407.0" mnemonicParsing="false" onAction="#handle_edit_infor_doctor" prefHeight="31.0" prefWidth="280.0" styleClass="primaryBtn" text="Edit information" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@icons/addIcon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Label layoutX="21.0" layoutY="180.0" text="Level" AnchorPane.leftAnchor="12.0" />
+                        <ComboBox fx:id="level_doctor_edit" layoutX="94.0" layoutY="176.0" prefHeight="25.0" prefWidth="199.0" promptText="Level of doctor" style="-fx-background-color: #ddd; -fx-border-color: #000;" AnchorPane.leftAnchor="94.0" />
+                        <Label layoutX="23.0" layoutY="217.0" text="Age" AnchorPane.leftAnchor="12.0" />
+                        <Label layoutX="15.0" layoutY="255.0" prefHeight="17.0" prefWidth="87.0" text="Specialist dr" AnchorPane.leftAnchor="12.0" />
+                        <ComboBox fx:id="age_doctor_edit" layoutX="93.0" layoutY="213.0" prefHeight="25.0" prefWidth="199.0" promptText="Age" style="-fx-background-color: #ddd; -fx-border-color: #000;" AnchorPane.leftAnchor="94.0" />
+                        <Label layoutX="10.0" layoutY="291.0" prefHeight="17.0" prefWidth="78.0" text="Description" AnchorPane.leftAnchor="12.0" />
+                        <ComboBox fx:id="work_special_doctor_edit" layoutX="93.0" layoutY="251.0" prefHeight="25.0" prefWidth="199.0" promptText="Work specialize" style="-fx-background-color: #ddd; -fx-border-color: #000;" AnchorPane.leftAnchor="94.0" />
+                        <TextArea fx:id="description_doctor_edit" layoutX="91.0" layoutY="300.0" prefHeight="62.0" prefWidth="199.0" AnchorPane.leftAnchor="94.0" />
+                        <Label layoutX="15.0" layoutY="99.0" text="Gender" AnchorPane.leftAnchor="12.0" />
+                        <ComboBox fx:id="gender_doctor_edit" layoutX="95.0" layoutY="95.0" prefHeight="25.0" prefWidth="95.0" promptText="Gender" style="-fx-background-color: #eee; -fx-border-color: #111;" AnchorPane.leftAnchor="94.0" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </StackPane>
+    </children>
+</AnchorPane>

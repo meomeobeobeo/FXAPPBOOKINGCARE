@@ -66,6 +66,10 @@ public class SQLconnect {
 
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+
     public void insertDataSQL(String querry) throws SQLException {
         connection.prepareStatement(querry).execute();
 

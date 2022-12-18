@@ -2,6 +2,7 @@ package com.ui.bookingappui;
 
 import com.ui.bookingappui.function.*;
 import com.ui.bookingappui.model.doctors;
+import com.ui.bookingappui.model.medical_bill;
 import com.ui.bookingappui.model.patients;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,8 +20,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -140,9 +143,36 @@ public class dashBoardControl implements Initializable {
     @FXML
     private TextArea mailContent;
     @FXML
-    private ComboBox<String> mailPatientId;
+    private ComboBox<String> mailPatientIdBox;
     @FXML
-    private ComboBox<String> mailDoctorId;
+    private ComboBox<String> mailDoctorIdBox;
+    @FXML
+    private TableView<medical_bill> regist_table;
+    @FXML
+    private TableColumn<medical_bill,String> regist_patient_id_col;
+    @FXML
+    private TableColumn<medical_bill,String> regist_doctor_id_col;
+    @FXML
+    private TableColumn<medical_bill,LocalDate> regist_date_col;
+    @FXML
+    private TableColumn<medical_bill,Integer> payment_col;
+    @FXML
+    private ComboBox<String> search_dash_choose;
+    @FXML
+    private TextField dash_search_text;
+    ObservableList<String> search_dash_chooses = FXCollections.observableArrayList(
+            "Search with patient id",
+            "Search with doctor id",
+            "Search with payment < value",
+            "Search All"
+    );
+    private final ObservableList<medical_bill> regist_data = FXCollections.observableArrayList();
+    ResultSet result_search_regist;
+    private final ObservableList<String> mailPatientBoxItems = FXCollections.observableArrayList();
+    private final ObservableList<String> mailDoctorBoxItems = FXCollections.observableArrayList();
+
+
+
 
 
     // Khởi tạo
@@ -173,8 +203,91 @@ public class dashBoardControl implements Initializable {
         doctor_name_col.setCellValueFactory(new PropertyValueFactory<doctors, String>("nameDoctor"));
         doctor_email_col.setCellValueFactory(new PropertyValueFactory<doctors, String>("email"));
         table_doctors.setItems(doctors_list);
+        // dash board
+        search_dash_choose.setItems(search_dash_chooses);
+        regist_patient_id_col.setCellValueFactory(new PropertyValueFactory<medical_bill,String>("patient_id"));
+        regist_doctor_id_col.setCellValueFactory(new PropertyValueFactory<medical_bill,String>("doctor_id"));
+        regist_date_col.setCellValueFactory(new PropertyValueFactory<medical_bill, LocalDate>("registration_date"));
+        payment_col.setCellValueFactory(new PropertyValueFactory<medical_bill,Integer>("payment"));
+        regist_table.setItems(regist_data);
+        mailPatientIdBox.setItems(mailPatientBoxItems);
+        mailDoctorIdBox.setItems(mailDoctorBoxItems);
 
 
+
+
+    }
+    private void regist_table_setData(PreparedStatement prepare) throws SQLException {
+        regist_data.clear();
+        result_search_regist = prepare.executeQuery();
+        if (!result_search_regist.isBeforeFirst() && result_search_regist.getRow() == 0) {
+            new myAlert().getAlertCanNotFindData().show();
+            return;
+        }
+        while (result_search_regist.next()){
+            mailPatientBoxItems.add(result_search_regist.getString("patient_id"));
+            mailDoctorBoxItems.add(result_search_regist.getString("doctor_id"));
+            regist_data.add(
+                    new medical_bill(
+                            result_search_regist.getString("patient_id"),
+                            result_search_regist.getString("doctor_id"),
+                            result_search_regist.getDate("registration_date").toLocalDate(),
+                            result_search_regist.getTime("registration_time").toLocalTime(),
+                            result_search_regist.getDate("medical_examination_date").toLocalDate(),
+                            result_search_regist.getTime("medical_examination_time").toLocalTime(),
+                            result_search_regist.getInt("payment")
+                            )
+            );
+        }
+        System.out.println(regist_data);
+
+
+    }
+    @FXML
+    private void search_regist_action(ActionEvent event) throws SQLException {
+        SQLconnect sqLconnect = new SQLconnect();
+        String searchText = dash_search_text.getText();
+
+
+        if(search_dash_choose.getValue() == "Search with patient id"){
+            sqLconnect.connect();
+            PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from medical_bill where patient_id = ?");
+            prepare.setString(1,searchText);
+            regist_table_setData(prepare);
+            System.out.println("search success");
+
+
+        } else if (search_dash_choose.getValue() == "Search with doctor id") {
+            sqLconnect.connect();
+            PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from medical_bill where doctor_id = ?");
+            prepare.setString(1,searchText);
+            regist_table_setData(prepare);
+            System.out.println("search success");
+
+        } else if (search_dash_choose.getValue() == "Search with payment < value") {
+            String key = searchText.replaceAll("\\s+", "");
+            Help help = new Help();
+           if(help.checkStringOnlyNumber(key)){
+               sqLconnect.connect();
+               PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from medical_bill where payment <= ?");
+               prepare.setInt(1,Integer.parseInt(key));
+               regist_table_setData(prepare);
+               System.out.println("search success");
+
+           }
+           else {
+               new myAlert().getAlertDataInvalid().show();
+           }
+
+        } else if (search_dash_choose.getValue() == "Search All") {
+            sqLconnect.connect();
+            PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from medical_bill");
+            regist_table_setData(prepare);
+            System.out.println("search success");
+
+        } else {
+
+        }
     }
     @FXML
     private void set_patient_detail(ActionEvent event) throws IOException {
@@ -191,6 +304,23 @@ public class dashBoardControl implements Initializable {
         }
         patientDetailControl patientDetailControl = loader.getController();
         patientDetailControl.setValueDetail(patient);
+        stage.setScene(detailPageScene);
+
+    }
+    @FXML
+    private void set_detail_doctor(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("detailDoctor.fxml")));
+        Parent detailPage =loader.load();
+        Scene detailPageScene = new Scene(detailPage);
+        detailPageScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("detail.css")).toExternalForm());
+        doctors doctor = table_doctors.getSelectionModel().getSelectedItem();
+        if( doctor == null){
+            new myAlert().getAlertDataInvalid().show();
+            return;
+        }
+        doctorDetailControl doctorDetailControl = loader.getController();
+        doctorDetailControl.setValueDetail(doctor);
         stage.setScene(detailPageScene);
 
     }
@@ -223,14 +353,22 @@ public class dashBoardControl implements Initializable {
                 description_doctor.getText(),
                 gender_doctor.getValue()
         );
-        String age = Integer.toString(newDoctor.getAge());
-        String query = "insert into doctors values('" + newDoctor.getId() + "',N'" + newDoctor.getNameDoctor() + "','" + newDoctor.getPhone_number() + "','" + newDoctor.getEmail() + "',N'" + newDoctor.getGender() + "'," + age + ",N'" + newDoctor.getLevelDoctor() + "',N'" + newDoctor.getWork_specialize() + "',N'" + newDoctor.getDescriptionDoctor() + "')";
-        System.out.println(query);
         SQLconnect sqLconnect = new SQLconnect();
 
         try {
             sqLconnect.connect();
-            sqLconnect.insertDataSQL(query);
+            PreparedStatement preparedStatement = sqLconnect.getConnection().prepareStatement("insert into doctors values (?,?,?,?,?,?,?,?,?)");
+            preparedStatement.setString(1,newDoctor.getId());
+            preparedStatement.setString(2,newDoctor.getNameDoctor());
+            preparedStatement.setString(3,newDoctor.getPhone_number());
+            preparedStatement.setString(4,newDoctor.getEmail());
+            preparedStatement.setString(5,newDoctor.getGender());
+            preparedStatement.setInt(6,newDoctor.getAge());
+            preparedStatement.setString(7,newDoctor.getLevelDoctor());
+            preparedStatement.setString(8,newDoctor.getWork_specialize());
+            preparedStatement.setString(9,newDoctor.getDescriptionDoctor());
+            preparedStatement.execute();
+
             System.out.println("insert data success....");
             name_doctor.setText("");
             address_doctor.setText("");
@@ -241,6 +379,7 @@ public class dashBoardControl implements Initializable {
             work_special_doctor.setValue("");
             gender_doctor.setValue("");
             name_doctor.requestFocus();
+            description_doctor.setText("");
         } catch (SQLException err) {
             throw new RuntimeException(err);
         }
@@ -283,7 +422,20 @@ public class dashBoardControl implements Initializable {
 
         try {
             sqLconnect.connect();
-            sqLconnect.insertDataSQL(query);
+
+            PreparedStatement preparedStatement = sqLconnect.getConnection().prepareStatement("insert into patients values (?,?,?,?,?,?,?)");
+            preparedStatement.setString(1,newPatient.getId());
+            preparedStatement.setString(2,newPatient.getNamePatient());
+            preparedStatement.setString(3,newPatient.getAddressPatient());
+            preparedStatement.setString(4, newPatient.getPhone_number());
+            preparedStatement.setString(5, newPatient.getEmail());
+            preparedStatement.setString(6, newPatient.getGender());
+            preparedStatement.setInt(7, newPatient.getAge());
+
+
+
+            preparedStatement.execute();
+
             System.out.println("insert data success....");
             namePatient.setText("");
             addressPatient.setText("");
@@ -299,9 +451,9 @@ public class dashBoardControl implements Initializable {
 
     }
 
-    private void patient_setData(String query, SQLconnect sqLconnect) throws SQLException {
+    private void patient_setData(PreparedStatement prepare) throws SQLException {
         patients_list.clear();
-        result_patients = sqLconnect.getData(query);
+        result_patients = prepare.executeQuery();
         if (!result_patients.isBeforeFirst() && result_patients.getRow() == 0) {
             new myAlert().getAlertCanNotFindData().show();
             return;
@@ -326,10 +478,10 @@ public class dashBoardControl implements Initializable {
 
     }
 
-    private void doctor_setData(String query, SQLconnect sqLconnect) throws SQLException {
+    private void doctor_setData(PreparedStatement prepare) throws SQLException {
 
         doctors_list.clear();
-        result_doctors = sqLconnect.getData(query);
+        result_doctors = prepare.executeQuery();
         if (!result_doctors.isBeforeFirst() && result_doctors.getRow() == 0) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Status");
@@ -374,10 +526,13 @@ public class dashBoardControl implements Initializable {
         if (choose == "Search with Name") {
 
             String query = "select * from doctors where nameDoctor like N'" + searchText + "%'";
+
             System.out.println(query);
+            PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from doctors where nameDoctor like ?   ");
+            prepare.setString(1,searchText + "%");
 
             // set data into state
-            doctor_setData(query, sqLconnect);
+            doctor_setData(prepare);
         } else if (choose == "Search with age") {
             String key = searchText.replaceAll("\\s+", "");
             Help help = new Help();
@@ -385,8 +540,10 @@ public class dashBoardControl implements Initializable {
 
                 String query = "select * from doctors where age = " + searchText.replaceAll("\\s+", "");
                 System.out.println(query);
+                PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from doctors where age = ?   ");
+                prepare.setInt(1,Integer.parseInt(key));
                 // set data into state
-                doctor_setData(query, sqLconnect);
+                doctor_setData(prepare);
             } else {
                 new myAlert().getAlertDataInvalid().show();
 
@@ -396,20 +553,28 @@ public class dashBoardControl implements Initializable {
             patients_list.clear();
             String query = "select * from doctors where id = " + "'" + searchText.replaceAll("\\s+", "") + "'";
             System.out.println(query);
+            PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from doctors where id = ?   ");
+            prepare.setString(1,searchText);
             // set data into state
-            doctor_setData(query, sqLconnect);
+            doctor_setData(prepare);
         } else if (choose == "Search with phone number") {
             patients_list.clear();
             String query = "select * from doctors where phone_number = " + "'" + searchText.replaceAll("\\s+", "") + "'";
             System.out.println(query);
             // set data into state
-            doctor_setData(query, sqLconnect);
+            PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from doctors where phone_number = ?   ");
+            prepare.setString(1,searchText);
+            // set data into state
+            doctor_setData(prepare);
         } else if (choose == "Search with Email") {
             patients_list.clear();
             String query = "select * from doctors where email = " + "'" + searchText.replaceAll("\\s+", "") + "'";
             System.out.println(query);
             // set data into state
-            doctor_setData(query, sqLconnect);
+            PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from doctors where email = ?   ");
+            prepare.setString(1,searchText);
+            // set data into state
+            doctor_setData(prepare);
 
 
         } else {
@@ -440,16 +605,20 @@ public class dashBoardControl implements Initializable {
 
             String query = "select * from patients where namePatient like N'" + searchText + "%'";
             System.out.println(query);
+            PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from patients where namePatient like ?");
+            prepare.setString(1,searchText + "%");
             // set data into state
-            patient_setData(query, sqLconnect);
+            patient_setData(prepare);
         } else if (choose == "Search with age") {
             String key = searchText.replaceAll("\\s+", "");
             Help help = new Help();
             if (help.checkStringOnlyNumber(key)) {
                 String query = "select * from patients where age = " + searchText.replaceAll("\\s+", "");
                 System.out.println(query);
+                PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from patients where age = ?");
+                prepare.setInt(1,Integer.parseInt(key));
                 // set data into state
-                patient_setData(query, sqLconnect);
+                patient_setData(prepare);
             } else {
                 new myAlert().getAlertDataInvalid().show();
             }
@@ -459,20 +628,29 @@ public class dashBoardControl implements Initializable {
             patients_list.clear();
             String query = "select * from patients where id = " + "'" + searchText.replaceAll("\\s+", "") + "'";
             System.out.println(query);
+            System.out.println(query);
+            PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from patients where id = ?");
+            prepare.setString(1,searchText);
             // set data into state
-            patient_setData(query, sqLconnect);
+            patient_setData(prepare);
         } else if (choose == "Search with phone number") {
             patients_list.clear();
             String query = "select * from patients where phone_number = " + "'" + searchText.replaceAll("\\s+", "") + "'";
             System.out.println(query);
+            PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from patients where phone_number = ?");
+            prepare.setString(1,searchText);
             // set data into state
-            patient_setData(query, sqLconnect);
+            patient_setData(prepare);
+
         } else if (choose == "Search with Email") {
             patients_list.clear();
             String query = "select * from patients where email = " + "'" + searchText.replaceAll("\\s+", "") + "'";
             System.out.println(query);
+
+            PreparedStatement prepare = sqLconnect.getConnection().prepareStatement("select * from patients where email = ?");
+            prepare.setString(1,searchText);
             // set data into state
-            patient_setData(query, sqLconnect);
+            patient_setData(prepare);
 
 
         } else {
@@ -551,6 +729,18 @@ public class dashBoardControl implements Initializable {
             }
 
         }
+    }
+    @FXML
+    private void handleRegistTab() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader main = new FXMLLoader(Objects.requireNonNull(getClass().getResource("regist.fxml")));
+        Parent mainPage = main.load();
+        Scene mainScene = new Scene(mainPage);
+        mainScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("detail.css")).toExternalForm());
+        mainScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("regist.css")).toExternalForm());
+
+        stage.setScene(mainScene);
+        stage.show();
     }
 
     // set route

@@ -1,62 +1,53 @@
 package com.ui.bookingappui.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class medical_bill {
 
     private String patient_id;
     private String doctor_id;
-    private LocalDateTime registration_date;
-    private LocalDateTime medical_examination_day;
+    private LocalDate registration_date;
+    private LocalTime registration_time;
+    private LocalDate medical_examination_day;
+    private LocalTime medical_examination_time;
     private int payment;
-
-    public medical_bill(String patient_id, String doctor_id, LocalDateTime registration_date, LocalDateTime medical_examination_day, int payment) {
-        this.patient_id = patient_id;
-        this.doctor_id = doctor_id;
-        this.registration_date = registration_date;
-        this.medical_examination_day = medical_examination_day;
-        this.payment = payment;
-    }
-
-    public int getPayment() {
-        return payment;
-    }
-
-    public void setPayment(int payment) {
-        this.payment = payment;
-    }
 
     public String getPatient_id() {
         return patient_id;
-    }
-
-    public void setPatient_id(String patient_id) {
-        this.patient_id = patient_id;
     }
 
     public String getDoctor_id() {
         return doctor_id;
     }
 
-    public void setDoctor_id(String doctor_id) {
-        this.doctor_id = doctor_id;
-    }
-
-    public LocalDateTime getRegistration_date() {
+    public LocalDate getRegistration_date() {
         return registration_date;
     }
 
-    public void setRegistration_date(LocalDateTime registration_date) {
-        this.registration_date = registration_date;
+    public LocalTime getRegistration_time() {
+        return registration_time;
     }
 
-    public LocalDateTime getMedical_examination_day() {
+    public LocalDate getMedical_examination_day() {
         return medical_examination_day;
     }
 
-    public void setMedical_examination_day(LocalDateTime medical_examination_day) {
-        this.medical_examination_day = medical_examination_day;
+    public LocalTime getMedical_examination_time() {
+        return medical_examination_time;
     }
 
+    public int getPayment() {
+        return payment;
+    }
 
+    public medical_bill(String patient_id, String doctor_id, LocalDate registration_date, LocalTime registration_time, LocalDate medical_examination_day, LocalTime medical_examination_time, int payment) {
+        this.patient_id = patient_id;
+        this.doctor_id = doctor_id;
+        this.registration_date = registration_date;
+        this.registration_time = registration_time;
+        this.medical_examination_day = medical_examination_day;
+        this.medical_examination_time = medical_examination_time;
+        this.payment = payment;
+    }
 }

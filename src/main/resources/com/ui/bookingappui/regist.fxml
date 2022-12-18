@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="548.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.bookingappui.registFormControl">
+   <children>
+      <ComboBox fx:id="doctorId" layoutX="100.0" layoutY="83.0" onAction="#changeDoctorId" prefWidth="150.0" style="-fx-background-color: #eee; -fx-border-color: #111;" />
+      <ComboBox fx:id="patientId" layoutX="100.0" layoutY="150.0" onAction="#changePatientId" prefWidth="150.0" style="-fx-background-color: #eee; -fx-border-color: #111;" />
+      <Label layoutX="100.0" layoutY="47.0" text="Doctor Id" />
+      <Label layoutX="100.0" layoutY="124.0" text="Patient Id" />
+      <TextField fx:id="moneyPay" layoutX="101.0" layoutY="349.0" />
+      <Button layoutX="358.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleRegist" prefHeight="34.0" prefWidth="135.0" styleClass="redBtb" text="Regist" />
+      <Label layoutX="100.0" layoutY="192.0" prefHeight="17.0" prefWidth="45.0" />
+      <Label layoutX="100.0" layoutY="192.0" text="Day " />
+      <Label layoutX="101.0" layoutY="307.0" text="Money pay" />
+      <Label layoutX="336.0" layoutY="88.0" text="Name doctor" textFill="#276cb5" />
+      <Label fx:id="nameDoctor" layoutX="447.0" layoutY="88.0" prefHeight="17.0" prefWidth="135.0" />
+      <Label layoutX="336.0" layoutY="155.0" text="Name patient" textFill="#276cb5" />
+      <Label fx:id="namePatient" layoutX="447.0" layoutY="155.0" prefHeight="17.0" prefWidth="135.0" />
+      <DatePicker fx:id="datePicker" layoutX="100.0" layoutY="227.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="timeField" layoutX="101.0" layoutY="269.0" prefHeight="25.0" prefWidth="149.0" promptText="hh:mm:ss" />
+   </children>
+</AnchorPane>

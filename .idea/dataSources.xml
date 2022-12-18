@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlserver://DESKTOP-JPBHIFB\SQLEXPRESS\bookingapp:1433;database=bookingapp</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="meotrangbeo_bookingApp" uuid="71b54eb4-f360-4a27-bb81-d5f1f334dff0">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://sql.bsite.net\MSSQL2016;database=meotrangbeo_bookingApp</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

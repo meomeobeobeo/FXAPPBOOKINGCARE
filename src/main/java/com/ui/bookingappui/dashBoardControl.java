@@ -168,8 +168,16 @@ public class dashBoardControl implements Initializable {
     );
     private final ObservableList<medical_bill> regist_data = FXCollections.observableArrayList();
     ResultSet result_search_regist;
-    private final ObservableList<String> mailPatientBoxItems = FXCollections.observableArrayList();
-    private final ObservableList<String> mailDoctorBoxItems = FXCollections.observableArrayList();
+    private final ObservableList<String> mailPatientBoxItems = FXCollections.observableArrayList("");
+    private final ObservableList<String> mailDoctorBoxItems = FXCollections.observableArrayList("");
+    @FXML
+    private void mail_choose_patient_id(){
+        mailPatientID.setText(mailPatientIdBox.getValue());
+    }
+    @FXML
+    private void mail_choose_doctor_id(){
+        mailDoctorID.setText(mailDoctorIdBox.getValue());
+    }
 
 
 

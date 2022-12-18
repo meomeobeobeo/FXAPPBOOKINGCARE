@@ -45,14 +45,17 @@ public class SQLconnect {
 
     public void connect() throws SQLServerException {
         SQLServerDataSource ds = new SQLServerDataSource();
+//        ds.setUser("meotrangbeo_bookingApp");
         ds.setUser("sa");
 
         ds.setPassword("meotrangbeo1");
         ds.setServerName("DESKTOP-JPBHIFB\\SQLEXPRESS");
+//        ds.setServerName("sql.bsite.net\\MSSQL2016SQL");
         ds.setEncrypt("true");
         ds.setTrustServerCertificate(true);
         ds.setSSLProtocol("TLSv1.2");
-        ds.setPortNumber(1433);
+       ds.setPortNumber(1433);
+
         ds.setDatabaseName("bookingapp");
         this.connection = ds.getConnection();
         System.out.println("connect success to sql server.");
